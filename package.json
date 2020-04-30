@@ -1,0 +1,63 @@
+{
+  "name": "glitcheroo",
+  "version": "0.1.0",
+  "description": "Give 'em the ol' gliitcheroo",
+  "keywords": [],
+  "homepage": "https://github.com/bacongravy/glitcheroo",
+  "bugs": "https://github.com/bacongravy/glitcheroo/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bacongravy/glitcheroo.git"
+  },
+  "license": "ISC",
+  "author": "David Kramer <bacongravy@icloud.com>",
+  "bin": {
+    "glitcheroo": "./bin/run"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "bin/",
+    "src/"
+  ],
+  "scripts": {
+    "lint": "eslint src --color",
+    "lint:check": "eslint --print-config .eslintrc | eslint-config-prettier-check",
+    "lint:fix": "eslint src --fix --color",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "postpack": "rm -f oclif.manifest.json",
+    "start": "node bin/run",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "dependencies": {
+    "@oclif/command": "^1.5.20",
+    "@oclif/config": "^1.15.1",
+    "@oclif/plugin-help": "^2.2.3",
+    "shell-escape-tag": "^2.0.2",
+    "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.22.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-promise": "^4.2.1",
+    "globby": "^10.0.2",
+    "prettier": "^2.0.5"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "glitcheroo",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  }
+}
