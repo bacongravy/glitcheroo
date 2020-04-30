@@ -35,8 +35,9 @@
     "@oclif/command": "^1.5.20",
     "@oclif/config": "^1.15.1",
     "@oclif/plugin-help": "^2.2.3",
-    "shell-escape-tag": "^2.0.2",
-    "shelljs": "^0.8.4"
+    "ansi-colors": "^4.1.1",
+    "enquirer": "^2.3.5",
+    "execa": "^4.0.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
