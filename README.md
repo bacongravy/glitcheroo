@@ -78,7 +78,7 @@ The configuration for a project may be reset by running the following command:
 npx glitcheroo reset
 ```
 
-This removes the Git configuration values added by the `deploy`, `setup-target`, and `remix` commands.
+This removes the Git configuration values added by the `setup-target`, `deploy`, and `remix` commands.
 
 ## Implementation details
 
