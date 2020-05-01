@@ -2,13 +2,13 @@
 
 A CLI tool to deploy an app to an existing Glitch project, completely replacing the project's previous contents. Use wisely!
 
-The app you are deploying must be committed to a local git repository.
-
 ## Basic usage
+
+To use `glitcheroo` source and target projects must be configured. The target must be a Glitch project. The source may be another Glitch project or a project on a local device. The source project must be committed to a Git repository.
 
 ### Setup the target
 
-Open a terminal in the root of the Glitch project that you want to replace. Run the following command to setup the target project:
+Open a terminal in the root of the Glitch project that you want to deploy to. Run the following command to setup the target project:
 
 ```sh
 npx glitcheroo setup-target
@@ -18,21 +18,21 @@ npx glitcheroo setup-target
 
 ### Deploy the app
 
-Open a terminal in the root of the project that you want to deploy. This could be a project on your local computer, or another Glitch project.
-
-Deploy the app by running the following command:
+Open a terminal in the root of the project that you want to deploy. Run the following command to deploy the app:
 
 ```sh
 npx glitcheroo deploy
 ```
 
-_Note: The first time you run this command it will prompt you to provide the Git URL of the **target project**. Find it in the "Tools > Import and Export" panel of the Glitch project editor. The URL will be saved as the Git remote `glitcheroo`._
+The first time you run this command in a source project it will prompt you to provide the Git URL of the **target project**. Find it in the "Tools > Import and Export" panel of the Glitch project editor.
 
 And that's it! Glitch will automatically detect the project change, reinstall the dependencies, and start the app.
 
 ## Advanced usage
 
 ### Remix
+
+As a convenience, this tool lets you remix a Glitch project to your local device. The remixed project is configured to target the original Glitch project for deployment.
 
 Remix a target Glitch project by running the following command:
 
@@ -41,8 +41,6 @@ npx glitcheroo remix
 ```
 
 Provide the Git URL of the _target project_ when prompted.
-
-This creates a new local Git repository by cloning a Glitch project and then configures the new project to target the Glitch project for deployment.
 
 ### Status
 
@@ -62,4 +60,4 @@ Reset the configuration for a project by running the following command:
 npx glitcheroo reset
 ```
 
-This removes the Git configuration added by the setup-target and deploy commands.
+This removes the Git configuration added by the `deploy`, `setup-target`, and `remix` commands.
