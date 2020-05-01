@@ -1,6 +1,7 @@
 const { Command } = require('@oclif/command');
 const execa = require('execa');
 const fs = require('fs');
+const StatusCommand = require('./status');
 
 const { HOOK_PATH, HOOK_CONTENT } = require('../constants');
 
@@ -9,6 +10,7 @@ class SetupTargetCommand extends Command {
     await execa('git', ['config', 'receive.denyCurrentBranch', 'ignore']);
     fs.writeFileSync(HOOK_PATH, HOOK_CONTENT);
     await execa('chmod', ['+x', HOOK_PATH]);
+    StatusCommand.run();
   }
 }
 

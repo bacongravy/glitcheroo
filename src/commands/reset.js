@@ -1,5 +1,6 @@
 const { Command } = require('@oclif/command');
 const execa = require('execa');
+const StatusCommand = require('./status');
 
 const { HOOK_PATH, REMOTE_NAME } = require('../constants');
 
@@ -9,6 +10,7 @@ class ResetCommand extends Command {
     await execa('rm', [HOOK_PATH], opt);
     await execa('git', ['config', '--unset', 'receive.denyCurrentBranch'], opt);
     await execa('git', ['remote', 'remove', REMOTE_NAME], opt);
+    StatusCommand.run();
   }
 }
 
