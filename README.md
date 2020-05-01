@@ -2,13 +2,17 @@
   <img src="https://raw.githubusercontent.com/bacongravy/glitcheroo/master/logo.png" width=300>
 </p>
 
-A CLI tool to deploy an app to an existing [Glitch](https://glitch.com) project, completely replacing the project's previous contents. Use wisely!
+A CLI tool to deploy an app to an existing [Glitch](https://glitch.com) project. The contents of the existing Glitch project are completely replaced. Use carefully!
 
 ## Basic usage
 
-To use `glitcheroo` source and target projects must be configured. The target must be a Glitch project. The source may be another Glitch project or a project on a local device. The source project must be committed to a Git repository.
+A target Glitch project must be setup to receive deployments before you can deploy an app with `glitcheroo`.
 
-### Setup the target
+Deployment is initiated from the source project. The source may be another Glitch project or a project committed to a Git repository on your local device.
+
+[Node.js](https://nodejs.org) is required, version 8.2.0 or higher.
+
+### Step 1: Setup the target
 
 Open a terminal in the root of the Glitch project that you want to deploy to. Run the following command to setup the target project:
 
@@ -18,7 +22,7 @@ npx glitcheroo setup-target
 
 **WARNING:** This command allows the Glitch project to be completely overwritten via remote Git operations.
 
-### Deploy the app
+### Step 2: Deploy the app
 
 Open a terminal in the root of the project that you want to deploy. Run the following command to deploy the app:
 
@@ -26,9 +30,21 @@ Open a terminal in the root of the project that you want to deploy. Run the foll
 npx glitcheroo deploy
 ```
 
-The first time you run this command in a source project it will prompt you to provide the Git URL of the **target project**. Find it in the "Tools > Import and Export" panel of the Glitch project editor.
+The first time you run this command in a project it will prompt you to provide the Git URL of the **target project**. Find it in the "Tools > Import and Export" panel of the Glitch project editor.
 
-And that's it! Glitch will automatically detect the project change, reinstall the dependencies, and start the app.
+And that's it! _There is no step 3._ Glitch will automatically detect the project change, reinstall the dependencies, and start the deployed app.
+
+## Installation
+
+Installation is not required. Node.js already includes the `npx` tool, and the `npx` tool automatically downloads and runs the latest version of `glitcheroo` every time you use it to run the commands.
+
+If you don't want `npx` to re-download `glitcheroo` every time you run the commands you can install the `glitcheroo` package as a devDependency of the project you are deploying:
+
+```sh
+npm install -D glitcheroo
+```
+
+You should continue to use `npx` to run `glitcheroo` after installing the package. The `npx` tool will find the version of `glitcheroo` installed in your project and use it instead of downloading the latest version.
 
 ## Advanced usage
 
@@ -46,7 +62,7 @@ Provide the Git URL of the _target project_ when prompted.
 
 ### Status
 
-Print the configuration status by running the following command:
+The configuration status for a project may be retrieved by running the following command:
 
 ```sh
 npx glitcheroo status
@@ -56,13 +72,32 @@ This prints whether the project has been configured as a source, a target, or bo
 
 ### Reset
 
-Reset the configuration for a project by running the following command:
+The configuration for a project may be reset by running the following command:
 
 ```sh
 npx glitcheroo reset
 ```
 
-This removes the Git configuration added by the `deploy`, `setup-target`, and `remix` commands.
+This removes the Git configuration values added by the `deploy`, `setup-target`, and `remix` commands.
+
+## Implementation details
+
+The `glitcheroo` tool works by configuring and using Git.
+
+The `setup-target` command:
+
+- sets the `receive.denyCurrentBranch` config value to `ignore` so that the `master` branch can be pushed to
+- installs a `post-receive` hook that runs after deploy and refreshes the workspace and Glitch editor with the new changes
+
+The `deploy` command:
+
+- adds a remote tracked repository named `glitcheroo` that points at the target
+- pushes `+HEAD:master` to the `glitcheroo` remote
+
+The `remix` command:
+
+- clones the target Git repository
+- renames the default remote in the new repository from `origin` to `glitcheroo`
 
 ## Acknowledgements
 
