@@ -1,6 +1,8 @@
-# `glitcheroo`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/bacongravy/glitcheroo/master/logo.png" width=300>
+</p>
 
-A CLI tool to deploy an app to an existing Glitch project, completely replacing the project's previous contents. Use wisely!
+A CLI tool to deploy an app to an existing [Glitch](https://glitch.com) project, completely replacing the project's previous contents. Use wisely!
 
 ## Basic usage
 
