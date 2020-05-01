@@ -3,6 +3,7 @@ const HOOK_PATH = '.git/hooks/post-receive';
 const HOOK_CONTENT = `#!/bin/bash
 unset GIT_INDEX_FILE
 git --work-tree=/app --git-dir=/app/.git checkout -f
+refresh
 `;
 
 const REMOTE_NAME = 'glitcheroo';
