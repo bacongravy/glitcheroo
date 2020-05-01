@@ -61,3 +61,9 @@ npx glitcheroo reset
 ```
 
 This removes the Git configuration added by the `deploy`, `setup-target`, and `remix` commands.
+
+## Acknowledgements
+
+This project was inspired by [Melissa McEwen's](http://www.melissamcewen.com/) fascinating article [Automating My Deploys From GitHub to Glitch](https://dev.to/glitch/automating-my-deploys-from-github-to-glitch-2fpd), published on [DEV](https://dev.to/) on April 21, 2020.
+
+Huge thanks to Glitch for providing a great service. This project is not affiliated with Glitch in any way.
