@@ -20,7 +20,7 @@ const getMessage = (hasRemote, hasHook) => {
 
 class StatusCommand extends Command {
   async run() {
-    const hasRemote = await execa('git', ['remote', 'show', REMOTE_NAME])
+    const hasRemote = await execa('git', ['remote', 'get-url', REMOTE_NAME])
       .then(() => true)
       .catch(() => false);
     const hasHook = fs.existsSync(HOOK_PATH);
