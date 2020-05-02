@@ -28,12 +28,13 @@ class DeployCommand extends Command {
     }
     const { stdout } = await execa('git', ['status', '--porcelain']);
     if (stdout.trim() !== '') {
-      console.log(c.bold.red('!'), c.bold('Project git status is not clean:'));
+      console.log(
+        c.bold.yellow('!'),
+        c.bold('Project git status is not clean:'),
+      );
       console.log(stdout);
       const { deploy } = await prompt(confirm);
-      if (!deploy) {
-        return;
-      }
+      if (!deploy) return;
     }
     const stdio = 'inherit';
     await execa('git', ['push', REMOTE_NAME, '+HEAD:master'], { stdio });
