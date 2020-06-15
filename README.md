@@ -87,6 +87,7 @@ The `glitcheroo` tool works by configuring and using Git.
 The `setup-target` command:
 
 - sets the `receive.denyCurrentBranch` config value to `ignore` so that the `master` branch can be pushed to
+- sets the `receive.shallowUpdate` config value to `true` so that shallow checkouts can be pushed
 - installs a `post-receive` hook that runs after deploy and refreshes the workspace and Glitch editor with the new changes
 
 The `deploy` command:
