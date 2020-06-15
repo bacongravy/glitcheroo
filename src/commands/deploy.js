@@ -1,5 +1,5 @@
 const c = require('ansi-colors');
-const { Command } = require('@oclif/command');
+const { Command, flags } = require('@oclif/command');
 const { prompt } = require('enquirer');
 const execa = require('execa');
 
@@ -19,12 +19,20 @@ const confirm = {
 
 class DeployCommand extends Command {
   async run() {
+    // eslint-disable-next-line no-shadow
+    const { flags } = this.parse(DeployCommand);
+    let repo = flags['git-url'];
     const hasRemote = await execa('git', ['remote', 'show', REMOTE_NAME])
       .then(() => true)
       .catch(() => false);
     if (!hasRemote) {
-      const { repo } = await prompt(input);
+      if (!repo) {
+        // @ts-ignore
+        repo = (await prompt(input)).repo;
+      }
       await execa('git', ['remote', 'add', 'glitcheroo', repo]);
+    } else if (repo) {
+      await execa('git', ['remote', 'set-url', 'glitcheroo', repo]);
     }
     const { stdout } = await execa('git', ['status', '--porcelain']);
     if (stdout.trim() !== '') {
@@ -44,6 +52,14 @@ class DeployCommand extends Command {
 DeployCommand.aliases = ['banzai'];
 
 DeployCommand.description = `deploy a project to Glitch
-Deploys the HEAD of the current branch to the master branch of a target project on Glitch. Prompts for the target project's Git URL the first time it is run.`;
+Deploys the HEAD of the current branch to the master branch of a target project on Glitch. Prompts for the target project's Git URL the first time it is run if one is not provided via the git-url flag.`;
+
+DeployCommand.flags = {
+  'git-url': flags.string({
+    description: 'git URL of the target project',
+    required: false,
+    env: 'GLITCHEROO_GIT_URL',
+  }),
+};
 
 module.exports = DeployCommand;
