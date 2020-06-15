@@ -24,6 +24,7 @@ class SetupTargetCommand extends Command {
       if (!setup) return;
     }
     await execa('git', ['config', 'receive.denyCurrentBranch', 'ignore']);
+    await execa('git', ['config', 'receive.shallowUpdate', 'true']);
     fs.writeFileSync(HOOK_PATH, HOOK_CONTENT);
     await execa('chmod', ['+x', HOOK_PATH]);
     StatusCommand.run();

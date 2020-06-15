@@ -9,6 +9,7 @@ class ResetCommand extends Command {
     const opt = { reject: false };
     await execa('rm', [HOOK_PATH], opt);
     await execa('git', ['config', '--unset', 'receive.denyCurrentBranch'], opt);
+    await execa('git', ['config', '--unset', 'receive.shallowUpdate'], opt);
     await execa('git', ['remote', 'remove', REMOTE_NAME], opt);
     StatusCommand.run();
   }
