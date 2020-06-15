@@ -45,7 +45,20 @@ class DeployCommand extends Command {
       if (!deploy) return;
     }
     const stdio = 'inherit';
-    await execa('git', ['push', REMOTE_NAME, '+HEAD:master'], { stdio });
+    try {
+      await execa('git', ['push', REMOTE_NAME, '+HEAD:master'], { stdio });
+    } catch (error) {
+      console.error(
+        c.bold.red('✖'),
+        c.bold('An error occurred while pushing to the remote repository.'),
+      );
+      console.error(
+        c.bold.red('✖'),
+        c.bold(
+          'Are you sure you ran `npx glitcheroo setup-target` on the target?',
+        ),
+      );
+    }
   }
 }
 
