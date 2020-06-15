@@ -80,6 +80,10 @@ npx glitcheroo reset
 
 This removes the Git configuration values added by the `setup-target`, `deploy`, and `remix` commands.
 
+## Evironment variables
+
+The `glitcheroo deploy` command will read the Git URL of the target project from the `GLITCHEROO_GIT_URL` environment variable if it is set.
+
 ## Implementation details
 
 The `glitcheroo` tool works by configuring and using Git.
