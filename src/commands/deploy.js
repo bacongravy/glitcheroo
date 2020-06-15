@@ -22,7 +22,7 @@ class DeployCommand extends Command {
     // eslint-disable-next-line no-shadow
     const { flags } = this.parse(DeployCommand);
     let repo = flags['git-url'];
-    const hasRemote = await execa('git', ['remote', 'show', REMOTE_NAME])
+    const hasRemote = await execa('git', ['remote', 'show', '-n', REMOTE_NAME])
       .then(() => true)
       .catch(() => false);
     if (!hasRemote) {
